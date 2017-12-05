@@ -1,7 +1,7 @@
 #include "wavoutput.hpp"
 
 WavOutput::WavOutput(core::IO *io, int chans, int sampleRate)
-	: m_io(io), m_size(0), m_sampleRate(sampleRate)
+  :m_io(io), m_size(0), m_sampleRate(sampleRate)
 {
 	int bpsmp = 2;	// bytes per sample (per channel)
 

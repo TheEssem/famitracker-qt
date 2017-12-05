@@ -1,5 +1,4 @@
-#ifndef COMMON_PLATFORM_HPP
-#define COMMON_PLATFORM_HPP
+#pragma once
 	/*
 		note: anything clang-specific should be checked with __clang__ first,
 		as clang seems to define __GNUC__.
@@ -11,15 +10,7 @@
 	#	define NULL 0
 	#endif
 
-	#if defined _WIN32 || defined __CYGWIN__
-	#	define WINDOWS
-	#elif defined __APPLE__
-	#	define MACOSX
-	#elif defined __linux__
-	#	define LINUX
-	#else
-	#	error Unsupported OS.  Please refer to platform.hpp
-	#endif
+  #define LINUX
 
 	#ifdef __unix__
 	#	define UNIX
@@ -120,6 +111,3 @@
 #		define ASSUME_NEVER(lie)
 #		define UNREACHABLE
 #	endif
-
-#endif	// COMMON_H
-

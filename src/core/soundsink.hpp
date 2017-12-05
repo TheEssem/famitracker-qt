@@ -5,11 +5,11 @@
 
 namespace core
 {
-	class IO;
+  class IO;
 	struct _soundsink_threading_t;
 	struct timestamp_t;
 	class RingBuffer;
-	class COREAPI SoundSink
+  class  SoundSink
 	{
 	public:
 		typedef core::u32 (*sound_callback_t)(core::s16 *buffer, core::u32 size, void *data, core::u32 *timeidx);
@@ -34,8 +34,8 @@ namespace core
 	private:
 		static const int MAX_TIMEIDX=64;
 
-		bool _timeloop_readNextTimestamp(core::timestamp_t &, u32 &skip);
-		void _timeloop_tryCallTimestamp(const core::timestamp_t &, u32 &skip);
+    bool _timeloop_readNextTimestamp(core::timestamp_t &, u32 &skip);
+    void _timeloop_tryCallTimestamp(const core::timestamp_t &, u32 &skip);
 		void _timeloop();
 		static void _timeloop_bootstrap(SoundSink *);
 		sound_callback_t m_soundCallback;
@@ -49,7 +49,7 @@ namespace core
 		core::RingBuffer *m_timeidx_ringbuffer;
 	};
 
-	class COREAPI SoundSinkPlayback : public SoundSink
+  class  SoundSinkPlayback : public SoundSink
 	{
 	public:
 		SoundSinkPlayback();
@@ -60,23 +60,23 @@ namespace core
 		virtual void close() = 0;
 	};
 
-	class COREAPI SoundSinkExport : public SoundSink
+  class  SoundSinkExport : public SoundSink
 	{
 	public:
 		void render();
 	protected:
-		SoundSinkExport(core::IO *io, unsigned int sampleRate, unsigned int channels);
+    SoundSinkExport();
+    SoundSinkExport(core::IO *io, unsigned int sampleRate, unsigned int channels);
 		SoundSinkExport(const SoundSinkExport&);
 		SoundSinkExport & operator =(const SoundSinkExport&);
-		virtual ~SoundSinkExport();
 
-		virtual void flushBuffer(core::s16 *Buffer, core::u32 Size);
+    virtual void flushBuffer(core::s16 *Buffer, core::u32 Size) = 0;
 
 	private:
 
 	};
 
-	COREAPI core::SoundSink * loadSoundSink(const char *name);
+   core::SoundSink * loadSoundSink(const char *name);
 }
 
 #endif

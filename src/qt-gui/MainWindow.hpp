@@ -137,11 +137,14 @@ namespace gui
 		void selectDefaultStyle();
 		void selectMonochromeStyle();
 	private:
+    void DoSave(const QString &path);
+
 		App * m_app;
 		DocInfo * m_dinfo;
 		InstrumentEditor *m_instrumenteditor;
 		QComboBox *octave;
 		QAction ** m_recentFiles;
+    QString current_filename_;
 
 		void addInstrument(int chip);
 	};

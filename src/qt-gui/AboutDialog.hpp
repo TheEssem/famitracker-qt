@@ -6,7 +6,7 @@
 
 namespace gui
 {
-	class AboutDialog : public QDialog, public Ui_About
+  class AboutDialog : public QDialog, public Ui_About
 	{
 		Q_OBJECT
 	public:

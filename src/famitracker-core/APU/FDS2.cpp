@@ -20,12 +20,12 @@
 
 // This code comes from nintendulator
 
-#include "../stdafx.h"
+// #include "../stdafx.h"
 #include <cmath>
 #include <memory>
 #include "APU.h"
 #include "FDS.h"
-
+/*
 #define LOG_BITS 12
 #define LIN_BITS 7
 #define LOG_LIN_BITS 30
@@ -84,6 +84,7 @@ void FDSSelect(unsigned type);
 
 
 #define FM_DEPTH 0 /* 0,1,2 */
+/*
 #define NES_BASECYCLES (21477270)
 #define PGCPS_BITS (32-16-6)
 #define EGCPS_BITS (12)
@@ -159,14 +160,14 @@ static void FDSSoundEGStep(FDS_EG *peg)
 }
 
 
-static int32 __fastcall FDSSoundRender(void)
+static int32  FDSSoundRender(void)
 {
 	int32 output;
-	/* Wave Generator */
+  // Wave Generator
 	FDSSoundWGStep(&fdssound.op[1].wg);
 	FDSSoundWGStep(&fdssound.op[0].wg);
 
-	/* Frequency Modulator */
+  // Frequency Modulator
 	fdssound.op[1].pg.spd = fdssound.op[1].pg.spdbase;
 	if (fdssound.op[1].wg.disable)
 		fdssound.op[0].pg.spd = fdssound.op[0].pg.spdbase;
@@ -183,12 +184,12 @@ static int32 __fastcall FDSSoundRender(void)
 		fdssound.op[0].pg.spd = v1 * fdssound.phasecps;
 	}
 
-	/* Accumulator */
+  // Accumulator
 	output = fdssound.op[0].eg.volume;
 	if (output > 0x20) output = 0x20;
 	output = (fdssound.op[0].wg.output * output * fdssound.mastervolumel[fdssound.lvl]) >> (VOL_BITS - 4);
 
-	/* Envelope Generator */
+  // Envelope Generator
 	if (!fdssound.envdisable && fdssound.envspd)
 	{
 		fdssound.envcnt += fdssound.envcps;
@@ -200,13 +201,13 @@ static int32 __fastcall FDSSoundRender(void)
 		}
 	}
 
-	/* Phase Generator */
+  // Phase Generator
 	fdssound.op[1].wg.phase += fdssound.op[1].pg.spd;
 	fdssound.op[0].wg.phase += fdssound.op[0].pg.spd;
 	return (fdssound.op[0].pg.freq != 0) ? output : 0;
 }
 
-static void __fastcall FDSSoundVolume(unsigned int volume)
+static void  FDSSoundVolume(unsigned int volume)
 {
 	volume += 196;
 	fdssound.mastervolume = (volume << (LOG_BITS - 8)) << 1;
@@ -221,7 +222,7 @@ static const uint8 wave_delta_table[8] = {
 	0,256 - (4 << FM_DEPTH),256 - (2 << FM_DEPTH),256 - (1 << FM_DEPTH),
 };
 
-static void __fastcall FDSSoundWrite(uint16 address, uint8 value)
+static void  FDSSoundWrite(uint16 address, uint8 value)
 {
 	if (0x4040 <= address && address <= 0x407F)
 	{
@@ -311,7 +312,7 @@ static void __fastcall FDSSoundWrite(uint16 address, uint8 value)
 	}
 }
 
-static uint8 __fastcall FDSSoundRead(uint16 address)
+static uint8  FDSSoundRead(uint16 address)
 {
 	if (0x4040 <= address && address <= 0x407f)
 	{
@@ -342,7 +343,7 @@ static uint32 DivFix(uint32 p1, uint32 p2, uint32 fix)
 	return ret;
 }
 
-static void __fastcall FDSSoundReset(void)
+static void  FDSSoundReset(void)
 {
 	uint32 i;
 	memset(&fdssound, 0, sizeof(FDSSOUND));
@@ -365,6 +366,7 @@ void FDSSoundInstall3(void)
 }
 
 // FDS interface (jsr)
+/*
 
 CFDS::CFDS(CMixer *pMixer) : CExChannel(pMixer, SNDCHIP_FDS, CHANID_FDS)
 {
@@ -386,14 +388,14 @@ void CFDS::Write(uint16 Address, uint8 Value)
 	FDSSoundWrite(Address, Value);
 }
 
-uint8 CFDS::Read(uint16 Address)
+uint8 CFDS::Read(uint16 Address, bool &Mapped)
 {
 	return FDSSoundRead(Address);
 }
 
 void CFDS::EndFrame()
 {
-	m_iFrameCycles = 0;
+  // m_iFrameCycles = 0;
 }
 
 void CFDS::Process(uint32 Time)
@@ -403,6 +405,7 @@ void CFDS::Process(uint32 Time)
 
 	while (Time--) {
 		Mix(FDSSoundRender() >> 12);
-		m_iFrameCycles++;
+    // m_iFrameCycles++;
 	}
 }
+*/

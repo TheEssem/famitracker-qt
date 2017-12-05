@@ -1,6 +1,5 @@
 #include <QApplication>
 #include "Settings.hpp"
-#include "config.h"
 
 namespace gui
 {

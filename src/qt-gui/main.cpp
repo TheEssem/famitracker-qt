@@ -45,50 +45,6 @@ static void print_help()
 	);
 }
 
-
-#ifdef WINDOWS
-
-int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
-{
-
-	int argc;
-	LPWSTR *wargv = CommandLineToArgvW(GetCommandLineW(), &argc);
-
-	char **argv = new char*[argc];
-
-	for (int i = 0; i < argc; i++)
-	{
-		int bsz = WideCharToMultiByte(CP_UTF8, 0, wargv[i],-1, 0,0,0,0);
-		char *s = new char[bsz];
-		argv[i] = s;
-
-		WideCharToMultiByte(CP_UTF8, 0, wargv[i],-1,s,bsz,0,0);
-		s[bsz-1] = 0;
-	}
-
-	LocalFree(wargv);
-
-	arguments_t args;
-
-	gui::init(argc, argv);
-
-	parse_arguments(argc, argv, args);
-
-	gui::init_2(args.sound.c_str());
-
-	gui::spin();
-
-	gui::destroy();
-
-	for (int i = 0; i < argc; i++)
-	{
-		delete[] argv[i];
-	}
-	delete[] argv;
-}
-
-#else
-
 int main(int argc, char *argv[])
 {
 	gui::init(argc, argv);
@@ -114,5 +70,3 @@ int main(int argc, char *argv[])
 
 	return 0;
 }
-
-#endif

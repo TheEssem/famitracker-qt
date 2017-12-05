@@ -107,15 +107,9 @@ void CS5B::SetSampleSpeed(uint32 SampleRate, double ClockRate, uint32 FrameRate)
 		PSG_delete(psg);
 	}
 
-	PSG_init((uint32)ClockRate, SampleRate);
-	psg = PSG_new();
+  psg = PSG_new((uint32)ClockRate, SampleRate);
 	PSG_setVolumeMode(psg, 1);
 	PSG_reset(psg);
-
-//	psg = PSG_new();
-
-//	PSG_setVolumeMode(psg, 1);
-//	PSG_reset(psg);
 }
 
 void CS5B::SetVolume(float fVol)
@@ -125,5 +119,5 @@ void CS5B::SetVolume(float fVol)
 
 void CS5B::SetChannelVolume(int Chan, int LevelL, int LevelR)
 {
-	PSG_set_chan_vol(Chan, LevelL, LevelR);
+  // PSG_set_chan_vol(Chan, LevelL, LevelR);
 }

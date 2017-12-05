@@ -9,11 +9,11 @@ namespace gui
 	AboutDialog::AboutDialog(QWidget *parent)
 		: QDialog(parent)
 	{
-		setupUi(this);
+    setupUi(this);
 
 		const int iconSize = 64;
 
-		programIcon->resize(iconSize, iconSize);
+    programIcon->resize(iconSize, iconSize);
 		programIcon->setPixmap(qApp->windowIcon().pixmap(iconSize));
 
 		QFile fInput(":/aboutBlurb");
@@ -23,7 +23,7 @@ namespace gui
 		QString s = sin.readAll().arg(VERSION_STRING VERSION_STRING_MISC).arg("2013");
 		fInput.close();
 
-		blurb->setText(s);
+    blurb->setText(s);
 
 		adjustSize();
 	}

@@ -34,15 +34,11 @@ namespace gui
 		const DocInfo *dinfo = m_app->activeDocInfo();
 
 		bool startatrow0 = p.startatrow0;
-
-		int row = startatrow0?0:dinfo->currentRow();
+    int row = startatrow0 ? 0 : dinfo->currentRow();
 
 		m_app->sgen->trackerController()->startAt(dinfo->currentFrame(), row);
-
 		m_app->sgen->startTracker();
-
 		m_app->setIsPlaying(true);
-
 		m_app->sendCallbackEvent(cb, data);
 	}
 

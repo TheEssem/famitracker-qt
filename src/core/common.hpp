@@ -3,7 +3,7 @@
 #include "types.hpp"
 
 #ifdef CORE_ISLIB
-#	define COREAPI LIBEXPORT
+#	define  LIBEXPORT
 #else
-#	define COREAPI LIBIMPORT
+#	define  LIBIMPORT
 #endif

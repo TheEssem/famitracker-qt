@@ -5,7 +5,7 @@
 
 core_api_SoundSink * sound_create()
 {
-	return new AlsaSound;
+  return new AlsaSound;
 }
 
 struct _alsasound_threading

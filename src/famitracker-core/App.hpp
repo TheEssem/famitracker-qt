@@ -5,6 +5,8 @@
 #include "Settings.h"
 #include "common.hpp"
 
+class CSettings;
+
 namespace core
 {
 	class SoundSink;
@@ -12,8 +14,8 @@ namespace core
 
 namespace app
 {
-	FAMICOREAPI const CChannelMap * channelMap();
-	FAMICOREAPI const CSettings * settings();
+  const CChannelMap * channelMap();
+  const CSettings * settings();
 }
 
 #endif

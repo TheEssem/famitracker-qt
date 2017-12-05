@@ -404,14 +404,14 @@ namespace gui
 		setLayout(hl);
 	}
 
-	const char *dmcfilter = "Delta modulated samples (*.dmc);;All files (*.*)";
+  const char *dmcfilter = "Delta modulated samples (*.dmc);;All files (*.*)";
 
 	class CustomFileDialog : public QFileDialog
 	{
 	public:
 		CustomFileDialog()
 		{
-			setFilter(tr(dmcfilter));
+      setNameFilter(tr(dmcfilter));
 			setFileMode(QFileDialog::ExistingFiles);
 		}
 	};
@@ -510,7 +510,7 @@ namespace gui
 			QFileInfo fileInfo(str);
 
 			core::FileIO file(str.toLocal8Bit(), core::IO_READ);
-			int idx = doc->LoadSample(&file, fileInfo.fileName().toAscii());
+      int idx = doc->LoadSample(&file, fileInfo.fileName().toLatin1());
 			if (idx == -1)
 			{
 				// unable to load

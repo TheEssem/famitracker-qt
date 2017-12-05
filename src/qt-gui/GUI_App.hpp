@@ -1,127 +1,128 @@
 #ifndef _GUI_APP_HPP_
 #define _GUI_APP_HPP_
 
+#include <boost/thread/condition.hpp>
 #include <boost/thread/mutex.hpp>
-#include <boost/thread/condition.hpp>
-#include <boost/thread/condition.hpp>
 #include <vector>
 #include "DocInfo.hpp"
-#include "famitracker-core/SoundGen.hpp"
 #include "core/soundsink.hpp"
 #include "core/threadpool.hpp"
+#include "famitracker-core/SoundGen.hpp"
 
 class QApplication;
 
-namespace boost
-{
-	class thread;
+namespace boost {
+class thread;
 }
 
-namespace gui
-{
-	class MainWindow;
-	class ThreadPool;
+namespace gui {
+class MainWindow;
+class ThreadPool;
 
-	typedef void (*mainthread_callback_t)(MainWindow *, void*);
+typedef void (*mainthread_callback_t)(MainWindow *, void *);
 
-	class App
-	{
-		friend class ThreadPool;
-	public:
-		App(QApplication *a);
-		void init2(const char *sndname);
-		void destroy();
-		void spin();
+class App {
+  friend class ThreadPool;
 
-		void updateFrameChannel(bool modified=false);
-		void updateOctave();
+ public:
+  App(QApplication *a);
+  void init2(const char *sndname);
+  void destroy();
+  void spin();
 
-		unsigned int loadedDocuments();
-		FtmDocument * activeDocument();
-		DocInfo * activeDocInfo();
-		void closeActiveDocument();
-		bool openDocument(core::IO *io, bool close_active);
-		void newDocument(bool close_active);
-		void reloadAudio();
+  void updateFrameChannel(bool modified = false);
+  void updateOctave();
 
-		bool isPlaying();
-		bool isEditing();
-		bool canEdit(){ return isEditing() && (!isPlaying()); }
+  unsigned int loadedDocuments();
+  FtmDocument *activeDocument();
+  DocInfo *activeDocInfo();
+  void closeActiveDocument();
+  bool openDocument(core::IO *io, bool close_active);
+  void newDocument(bool close_active);
+  void reloadAudio();
 
-		void setIsPlaying(bool playing);
+  bool isPlaying();
+  bool isEditing();
+  bool canEdit() {
+    return isEditing() && (!isPlaying());
+  }
 
-		void sendUpdateEvent();
-		void sendCallbackEvent(mainthread_callback_t cb, void *data);
+  void setIsPlaying(bool playing);
 
-		void playSongConcurrent(mainthread_callback_t, void *data=NULL);
-		void playSongConcurrent(){ playSongConcurrent(NULL, NULL); }
+  void sendUpdateEvent();
+  void sendCallbackEvent(mainthread_callback_t cb, void *data);
 
-		void playSongAtRowConcurrent();
+  void playSongConcurrent(mainthread_callback_t, void *data = NULL);
+  void playSongConcurrent() {
+    playSongConcurrent(NULL, NULL);
+  }
 
-		void stopSongConcurrent(mainthread_callback_t, void *data=NULL);
-		void stopSongConcurrent(){ stopSongConcurrent(NULL, NULL); }
+  void playSongAtRowConcurrent();
 
-		void stopSongTrackerConcurrent(mainthread_callback_t, void *data=NULL);
-		void stopSongTrackerConcurrent(){ stopSongTrackerConcurrent(NULL, NULL); }
+  void stopSongConcurrent(mainthread_callback_t, void *data = NULL);
+  void stopSongConcurrent() {
+    stopSongConcurrent(NULL, NULL);
+  }
 
-		void deleteSinkConcurrent(mainthread_callback_t cb, void *data=NULL);
+  void stopSongTrackerConcurrent(mainthread_callback_t, void *data = NULL);
+  void stopSongTrackerConcurrent() {
+    stopSongTrackerConcurrent(NULL, NULL);
+  }
 
-		void toggleSongPlaying()
-		{
-			if (isPlaying())
-			{
-				stopSongTrackerConcurrent();
-			}
-			else
-			{
-				playSongConcurrent();
-			}
-		}
-		void toggleEditMode();
+  void deleteSinkConcurrent(mainthread_callback_t cb, void *data = NULL);
 
-		void auditionNote(int channel, int octave, int note);
-		void auditionRow();
-		void auditionNoteHalt();
-		void auditionDPCM(const CDSample *sample);
+  void toggleSongPlaying() {
+    if (isPlaying()) {
+      stopSongTrackerConcurrent();
+    } else {
+      playSongConcurrent();
+    }
+  }
+  void toggleEditMode();
 
-		void setMuted(int channel, bool muted);
-		bool isMuted(int channel);
-		void toggleMuted(int channel)
-		{
-			setMuted(channel, !isMuted(channel));
-		}
-		void unmuteAll();
-		void toggleSolo(int channel);
+  void auditionNote(int channel, int octave, int note);
+  void auditionRow();
+  void auditionNoteHalt();
+  void auditionDPCM(const CDSample *sample);
 
-		QApplication * qtApp() const{ return app; }
+  void setMuted(int channel, bool muted);
+  bool isMuted(int channel);
+  void toggleMuted(int channel) {
+    setMuted(channel, !isMuted(channel));
+  }
+  void unmuteAll();
+  void toggleSolo(int channel);
 
-	private:
-		void setActiveDocument(int idx);
-		static void trackerUpdate_bootstrap(SoundGen::rowframe_t rf, FtmDocument *doc, void *data);
-		void trackerUpdate(const SoundGen::rowframe_t &rf, FtmDocument *doc);
+  QApplication *qtApp() const {
+    return app;
+  }
 
-		typedef std::vector<DocInfo> DocsList;
-		DocsList loaded_documents;
-		int active_doc_index;
+ private:
+  void setActiveDocument(int idx);
+  static void trackerUpdate_bootstrap(SoundGen::rowframe_t rf, FtmDocument *doc, void *data);
+  void trackerUpdate(const SoundGen::rowframe_t &rf, FtmDocument *doc);
 
-		SoundGen *sgen;
-		core::SoundSinkPlayback *sink;
-		MainWindow *mw;
-		bool is_playing;
-		boost::mutex mtx_is_playing;
+  typedef std::vector<DocInfo> DocsList;
+  DocsList loaded_documents;
+  int active_doc_index;
 
-		QApplication *app;
+  SoundGen *sgen;
+  core::SoundSinkPlayback *sink;
+  MainWindow *mw;
+  bool is_playing;
+  boost::mutex mtx_is_playing;
 
-		bool edit_mode;
+  QApplication *app;
 
-		ThreadPool *threadPool;
-		core::threadpool::Queue m_tpq;
-		boost::thread * m_tpoolThread;
+  bool edit_mode;
 
-		boost::mutex m_mtx_updateEvent;
-		boost::condition m_cond_updateEvent;
-	};
-}
+  ThreadPool *threadPool;
+  core::threadpool::Queue m_tpq;
+  boost::thread *m_tpoolThread;
+
+  boost::mutex m_mtx_updateEvent;
+  boost::condition m_cond_updateEvent;
+};
+}  // namespace gui
 
 #endif
-

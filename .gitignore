@@ -1,2 +1,2 @@
 # Qt Creator will generate these files
-CMakeLists.txt.user
+*.pro.user

@@ -3,7 +3,7 @@
 
 #if defined(__i386__) || defined(_M_IX86)
 #ifdef _MSC_VER
-#	define FDSCALL __fastcall
+#	define FDSCALL 
 #else
 #	define FDSCALL __attribute__((fastcall))
 #endif

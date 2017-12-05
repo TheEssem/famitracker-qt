@@ -21,6 +21,8 @@
 #ifndef _EXTERNAL_H_
 #define _EXTERNAL_H_
 
+#include "../Common.h"
+
 class CMixer;
 
 class CExternal {

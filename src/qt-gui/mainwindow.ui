@@ -581,13 +581,13 @@
   <customwidget>
    <class>gui::PatternView</class>
    <extends>QWidget</extends>
-   <header>PatternView.hpp</header>
+   <header>qt-gui/PatternView.hpp</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>gui::FrameView</class>
    <extends>QWidget</extends>
-   <header>FrameView.hpp</header>
+   <header>qt-gui/FrameView.hpp</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
