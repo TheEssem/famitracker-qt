@@ -18,6 +18,11 @@ The software license is mixed GPL v2/New BSD (inherited from FamiTracker CX).
 ## Attention
 FamiTracker Qt is not the main project I maintain. The code may contain errors. That's ok :)
 
+## TODO
+- [ ] Remove boost thread dependency 
+- [ ] Fix crashes
+- [ ] Write wav converter
+
 ## How to build
 FamiTracker Qt depends on following libraries:
  * Qt5
@@ -35,4 +40,3 @@ cd build
 qmake ../src/famitracker-qt.pro
 make
 ```
-That's all.
