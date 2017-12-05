@@ -16,6 +16,7 @@ class thread;
 }
 
 namespace gui {
+
 class MainWindow;
 class ThreadPool;
 
@@ -123,6 +124,7 @@ class App {
   boost::mutex m_mtx_updateEvent;
   boost::condition m_cond_updateEvent;
 };
-}  // namespace gui
+
+} // namespace gui
 
 #endif

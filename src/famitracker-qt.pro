@@ -172,3 +172,6 @@ FORMS += \
     qt-gui/createwav.ui \
     qt-gui/mainwindow.ui \
     qt-gui/moduleproperties.ui
+
+RESOURCES += \
+    qt-gui/resources.qrc

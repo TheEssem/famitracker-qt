@@ -12,7 +12,7 @@ static App *app;
 // let Qt evaluate the command line arguments
 void init(int &argc, char **argv) {
   QApplication *a = new QApplication(argc, argv);
-  a->setApplicationName(QApplication::tr("FamiTracker CX"));
+  a->setApplicationName(QApplication::tr("FamiTracker Qt"));
   a->setWindowIcon(QIcon(":/appicon"));
 
   app = new App(a);
