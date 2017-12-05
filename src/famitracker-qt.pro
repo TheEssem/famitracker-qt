@@ -9,9 +9,11 @@ QT       += core gui widgets
 TARGET = famitracker
 TEMPLATE = app
 
-QMAKE_INCDIR += /home/alexander/boost/include
-QMAKE_LIBDIR += /home/alexander/boost/lib
-QMAKE_LIBS += -ldl -lboost_system -lboost_thread -lasound
+BOOST_DIR = /home/alexander/boost
+
+QMAKE_INCDIR += $${BOOST_DIR}/include
+QMAKE_LIBDIR += $${BOOST_DIR}/lib
+QMAKE_LIBS += -lboost_system -lboost_thread -lasound
 
 QMAKE_CXXFLAGS_DEBUG -= -O2 -O3 -O1
 QMAKE_CXXFLAGS_DEBUG += -O0

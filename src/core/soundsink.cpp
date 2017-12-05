@@ -220,24 +220,6 @@ struct sound_handle_t {
   create_f create;
 };
 
-static bool loadSoundSink_os(sound_handle_t &h, const char *name) {
-  char libname[128];
-  sprintf(libname, SOUNDSINKLIB_FORMAT, name);
-  h.handle = dlopen(libname, RTLD_LAZY);
-  if (h.handle == NULL) {
-    fprintf(stderr, "loadSoundSink: Could not load: %s\n", dlerror());
-    return false;
-  }
-
-  h.create = (sound_handle_t::create_f)sound_create();  // dlsym(h.handle, "sound_create");
-  if (h.create == NULL) {
-    fprintf(stderr, "loadSoundSink: %s\n", dlerror());
-    return false;
-  }
-
-  return true;
-}
-
 core::SoundSink *loadSoundSink(const char *name) { return sound_create(); }
 
 SoundSinkPlayback::SoundSinkPlayback() {}
