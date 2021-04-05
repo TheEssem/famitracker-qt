@@ -1120,7 +1120,7 @@ namespace gui
 		m_body->m_pvParent = this;
 
 		QVBoxLayout *l = new QVBoxLayout;
-		l->setMargin(0);
+		l->setContentsMargins(0, 0, 0, 0);
 		l->setSpacing(0);
 		l->addWidget(m_header);
 		l->addWidget(m_body);
@@ -1337,7 +1337,7 @@ namespace gui
 		if (gui::isPlaying())
 			return;
 
-		bool down = e->delta() < 0;
+		bool down = e->angleDelta().y() < 0;
 
 		m_dinfo->scrollFrameBy(down ? 4 : -4);
 		gui::updateFrameChannel();

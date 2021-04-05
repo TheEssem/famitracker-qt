@@ -37,7 +37,7 @@ namespace gui
 		ADDCHIP(Settings_VRC6);
 
 		QVBoxLayout *vb = new QVBoxLayout;
-		vb->setMargin(0);
+		vb->setContentsMargins(0, 0, 0, 0);
 		vb->addWidget(m_tabwidget);
 		setLayout(vb);
 

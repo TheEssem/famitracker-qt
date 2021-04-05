@@ -373,7 +373,7 @@ void MainWindow::refreshInstruments() {
     if (res != NULL) item->setIcon(QIcon(res));
     setInstrumentName(item, i, inst->GetName());
 
-    item->setData(Qt::UserRole, qVariantFromValue(i));
+    item->setData(Qt::UserRole, QVariant::fromValue(i));
     instruments->addItem(item);
 
     if (i == current) {
@@ -410,7 +410,7 @@ void MainWindow::newDoc() {
 void MainWindow::open() {
   QString ftmpath = settings()->value(SETTINGS_FTMPATH).toString();
   QString path = QFileDialog::getOpenFileName(
-      this, tr("Open"), ftmpath, tr("FamiTracker files (*.ftm);;All files (*.*)"), 0, 0);
+      this, tr("Open"), ftmpath, tr("FamiTracker files (*.ftm);;All files (*.*)"));
   if (path.isEmpty()) return;
 
   openFile(path);
@@ -441,7 +441,7 @@ QString MainWindow::saveFileDialog(const QString &settingspath, const QString &f
 
   QString filetypepath = settings()->value(settingspath).toString();
   QString path = QFileDialog::getSaveFileName(this, tr("Save As"), filetypepath,
-                                              filter + ";;" + allFilesFilter, &selectedFilter, 0);
+                                              filter + ";;" + allFilesFilter, &selectedFilter);
   if (path.isEmpty()) return path;
 
   QFileInfo file(path);

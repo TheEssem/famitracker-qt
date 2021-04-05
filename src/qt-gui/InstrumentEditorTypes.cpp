@@ -27,7 +27,7 @@ namespace gui
 		m_wgt->setSeqIndex(m_wgt->tree->currentIndex().row(), idx);
 
 		QString num;
-		num.sprintf("%d", idx);
+		QTextStream(&num) << idx;
 
 		QTreeWidgetItem *item = m_wgt->tree->currentItem();
 		item->setText(1, num);
@@ -69,7 +69,7 @@ namespace gui
 		{
 			items[i]->setCheckState(0, getSeqEnable(i)?Qt::Checked:Qt::Unchecked );
 			QString str;
-			str.sprintf("%d", getSeqIndex(i));
+			QTextStream(&str) << getSeqIndex(i);
 			items[i]->setText(1, str);
 		}
 
@@ -442,7 +442,7 @@ namespace gui
 			else
 			{
 				QString str;
-				str.sprintf("%d", pitch);
+				QTextStream(&str) << pitch;
 				if (loop)
 					str.append(" L");
 				item->setText(1, str);
@@ -476,7 +476,7 @@ namespace gui
 				m_treewidget_loaded->addTopLevelItem(item);
 
 				QString str;
-				str.sprintf("%02d - %s", i, s->Name);
+				QTextStream(&str) << QString::number(i).rightJustified(2, '0') << " - " << s->Name;
 
 				m_combobox_sample->addItem(str, QVariant(i));
 			}
@@ -560,7 +560,7 @@ namespace gui
 			int idx = item->data(0, Qt::UserRole).toInt();
 			CDSample *samp = doc->GetDSample(idx);
 
-			QString path = QFileDialog::getSaveFileName(this, tr("Save As"), QString(samp->Name), tr(dmcfilter), 0, 0);
+			QString path = QFileDialog::getSaveFileName(this, tr("Save As"), QString(samp->Name), tr(dmcfilter));
 			if (path.isEmpty())
 				continue;
 

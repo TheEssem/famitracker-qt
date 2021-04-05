@@ -120,7 +120,7 @@ SequenceEditor::SequenceEditor(int inst_type)
   g->setRowStretch(1, 0);
 
   g->setColumnStretch(3, 10);
-  g->setMargin(0);
+  g->setContentsMargins(0, 0, 0, 0);
   g->setSpacing(0);
   setLayout(g);
 

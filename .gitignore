@@ -1,2 +1,4 @@
 # Qt Creator will generate these files
 *.pro.user
+build/
+.vscode/
